@@ -17,45 +17,20 @@ public class MainActivity extends FragmentActivity {
 
 
 
-    LoginButton loginButton;
-    TextView textView;
-    CallbackManager callbackManager;
+
+    public static boolean userLogin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_main);
 
-        callbackManager = CallbackManager.Factory.create();
-        loginButton = (LoginButton)  findViewById(R.id.fb_login_bn);
-        textView = (TextView) findViewById(R.id.textView);
-
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                textView.setText("Login sucess \n" + loginResult.getAccessToken().getUserId() + "\n" + loginResult.getAccessToken().getToken());
-            }
-
-            @Override
-            public void onCancel() {
-                textView.setText("Login Cancelled");
-
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                textView.setText("Login Error");
-
-            }
-        });
-    }
+        if(!userLogin) {
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
+        }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //TODO?
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
+
     }
 }
